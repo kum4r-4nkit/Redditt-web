@@ -5,8 +5,8 @@ export const loginAPI = async (email, password) => {
   return response.data;
 };
 
-export const fetchPostsAPI = async () => {
-  const response = await apiClient.get('/posts');
+export const fetchPostsAPI = async (page = 1, perPage = 10) => {
+  const response = await apiClient.get(`/posts?page=${page}&per_page=${perPage}`);
   return response.data;
 };
 
