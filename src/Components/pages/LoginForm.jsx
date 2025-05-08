@@ -15,7 +15,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const data = await loginAPI(email, password);
-      login(data.token);
+      login(data.token, data.user);
       toast.success('Login successful!');  // Display success message
       navigate('/');
     } catch {
@@ -31,12 +31,12 @@ const LoginForm = () => {
       </div>
       <div className='text-orange-600 w-2/5 min-h-screen content-center'>
         <div className='w-fit mx-auto'>
-          <h2 className='font-bold mb-3'>Have an account? Sign In</h2>
+          <h2 className='font-bold mb-3 ml-2'>Have an account? Sign In</h2>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <form onSubmit={handleSubmit}>
-            <input className='bg-gray-200 mx-1 rounded-md px-1 mb-2' type="email" placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input className='bg-gray-200 mx-1 rounded-md px-3 py-1 mb-2' type="email" placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)} required />
             <br />
-            <input className='bg-gray-200 mx-1 rounded-md px-1 mb-2' type="password" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input className='bg-gray-200 mx-1 rounded-md px-3 py-1 mb-2' type="password" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
             <br />
             <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mb-16 mx-1' type="submit">Login</button>
           </form>
