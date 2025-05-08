@@ -3,6 +3,7 @@ import ProtectedRoute from './ProtectedRoute';
 import LoginForm from './pages/LoginForm';
 import PostList from './pages/PostList';
 import SignupForm from './pages/SignupForm';
+import UserProfile from './pages/UserProfile';
 
 const AppRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const AppRoutes = () => {
       <Route path="/signup" element={<SignupForm />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<PostList />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Route>
     </Routes>
   );
