@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Logout from './Logout'
 import { useAuth } from '../../hooks/useAuth';
-import { getUserDataAPI, updateUserAPI } from '../../api/auth';
+import { getUserDataAPI, updateUserAPI, updatePasswordAPI } from '../../api/auth';
 import { toast } from 'react-toastify';
 
 const UserProfile = () => {
   const { user, setUser } = useAuth();
   const [bio, setBio] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     fetchUserData()
@@ -34,17 +37,53 @@ const UserProfile = () => {
     }
   };
 
+  const handlePasswordUpdate = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      toast.error('New password and confirm password do not match');
+      return;
+    }
+
+    try {
+      await updatePasswordAPI({ current_password: currentPassword, password: newPassword, password_confirmation: confirmPassword });
+      toast.success('Password updated successfully');
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Password update failed');
+    }
+  };
+
   return (
     <div className="p-4">
       <div className='rounded-3xl border-orange-600 border-4 w-min py-1 pl-2 pr-8'><Logout/></div>
       <h2 className="text-xl font-bold pt-4 my-2">Profile</h2>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>
-
-      <div className="mt-4">
-        <label>Bio:</label>
+      <div className="mt-1">
+        <label><strong>Bio:</strong></label>
         <textarea value={bio} onChange={(e) => setBio(e.target.value)} className="w-full border p-2 mb-2" />
         <button onClick={handleUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
+      </div>
+      <div className='mt-12'>
+        <strong>Update password:</strong><br />
+        <input
+          type="password" placeholder='Current Password'
+          value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
+          className='bg-gray-200 rounded-md px-3 py-1 mb-3 mt-3' required
+        /><br />
+        <input
+          type="password" placeholder='New Password'
+          value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+          className='bg-gray-200 rounded-md px-3 py-1 mb-3' required
+        /><br />
+        <input
+          type="password" placeholder='Confirm New Password'
+          value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+          className='bg-gray-200 rounded-md px-3 py-1 mb-3' required
+        /><br />
+        <button onClick={handlePasswordUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
       </div>
     </div>
   );
