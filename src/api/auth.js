@@ -14,3 +14,8 @@ export const signupAPI = async ({ username, email, password, passwordConfirmatio
   const response = await apiClient.post('/signup', { username, email, password, password_confirmation: passwordConfirmation });
   return response.data;
 };
+
+export const logoutAPI = async() => {
+  const response = await apiClient.post('/logout')
+  return response.data
+}
