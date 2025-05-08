@@ -29,3 +29,8 @@ export const updateUserAPI = async(bio) => {
   const response = await apiClient.patch('/profile', { bio })
   return response.data
 };
+
+export const updatePasswordAPI = async({ currentPassword, password, passwordConfirmation }) => {
+  const response = await apiClient.patch('/profile/update_password', { current_password: currentPassword, password, password_confirmation: passwordConfirmation })
+  return response.data
+}
