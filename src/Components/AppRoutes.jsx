@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
-import LoginForm from './LoginForm';
+import LoginForm from './pages/LoginForm';
 import PostList from './pages/PostList';
-import SignupForm from './SignupForm';
+import SignupForm from './pages/SignupForm';
 
 const AppRoutes = () => {
   return (

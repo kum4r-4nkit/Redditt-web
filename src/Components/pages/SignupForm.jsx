@@ -1,9 +1,9 @@
 // src/Components/SignupForm.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signupAPI } from '../api/auth';
+import { signupAPI } from '../../api/auth';
 import { toast } from 'react-toastify';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const SignupForm = () => {
             <br />
             <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mb-16 mx-1' type="submit">Sign Up</button>
           </form>
-          <p>Already have an account? <b><i><Link to="/login">Login here</Link></i></b></p>
+          <p>Already have an account? <u><Link to="/login">Login here</Link></u></p>
         </div>
       </div>
     </div>

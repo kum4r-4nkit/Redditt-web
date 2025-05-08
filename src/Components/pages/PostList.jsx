@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Logout from '../Logout';
-import RoundSpinner from '../../assets/loading-spinner.gif'
-import DotSpinner from '../../assets/dot-loader.gif'
+import RoundSpinner from '../../assets/animations/loaders/loading-spinner.gif'
+import DotSpinner from '../../assets/animations/loaders/dot-loader.gif'
 import { fetchPostsAPI } from '../../api/auth';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -72,10 +71,9 @@ const PostList = () => {
   }
 
   return (
-    <div>
-      <Logout />
-      {isInitialLoading ? (<SpinnerLoader/>) : (<RenderPostList />)}
-    </div>
+    <>
+      { isInitialLoading ? (<SpinnerLoader/>) : (<RenderPostList />) }
+    </>
   );
 };
 

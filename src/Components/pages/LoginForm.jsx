@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginAPI } from '../api/auth';
-import { useAuth } from '../hooks/useAuth';
+import { loginAPI } from '../../api/auth';
+import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-toastify'
 
 const LoginForm = () => {
@@ -40,7 +40,7 @@ const LoginForm = () => {
             <br />
             <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mb-16 mx-1' type="submit">Login</button>
           </form>
-          <p>Don't have an account? <b><i><Link to="/signup">Sign up here</Link></i></b></p>
+          <p>Don't have an account? <u><Link to="/signup">Sign up here</Link></u></p>
         </div>
       </div>
     </div>
