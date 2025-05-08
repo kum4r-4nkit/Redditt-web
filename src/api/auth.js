@@ -18,4 +18,9 @@ export const signupAPI = async ({ username, email, password, passwordConfirmatio
 export const logoutAPI = async() => {
   const response = await apiClient.post('/logout')
   return response.data
-}
+};
+
+export const updateUserAPI = async(bio) => {
+  const response = await apiClient.patch('/profile', { bio })
+  return response.data
+};
