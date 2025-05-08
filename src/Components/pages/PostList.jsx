@@ -57,7 +57,6 @@ const PostList = () => {
       loader={<ContentLoader />}
       endMessage={<p style={{ textAlign: 'center' }}>No more posts</p>}
     >
-        <h2>All Posts </h2>
         {posts.map((post, i) => (
           <div key={i} style={{ borderBottom: '1px solid #ccc', padding: '0px 16px' }}>
             <h3>{post.title}</h3>
