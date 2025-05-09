@@ -71,7 +71,7 @@ const UserProfile = () => {
 
   return (
     <div className="p-4">
-      <div className='rounded-3xl border-orange-600 border-4 w-min py-1 pl-2 pr-8'><Logout/></div>
+      <div className='flex justify-end'><Logout/></div>
       <h2 className="text-xl font-bold pt-4 my-2">Profile</h2>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>
