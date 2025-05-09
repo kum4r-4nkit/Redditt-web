@@ -38,9 +38,12 @@ const LoginForm = () => {
             <br />
             <input className='bg-gray-200 mx-1 rounded-md px-3 py-1 mb-2' type="password" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
             <br />
-            <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mb-16 mx-1' type="submit">Login</button>
+            <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mx-1' type="submit">Login</button>
           </form>
-          <p>Don't have an account? <u><Link to="/signup">Sign up here</Link></u></p>
+          <div className="mb-12 text-sm text-right">
+            <Link to="/forgot-password" className="text-blue-600 hover:underline">Forgot password?</Link>
+          </div>
+          <p>Don't have an account? <Link className="text-blue-600 hover:underline" to="/signup">Sign up here</Link></p>
         </div>
       </div>
     </div>

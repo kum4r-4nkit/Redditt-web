@@ -30,13 +30,29 @@ export const updateUserAPI = async(bio) => {
   return response.data
 };
 
-export const updatePasswordAPI = async(currentPassword, newPassword, confirmPassword) => {
+export const updatePasswordAPI = async(currentPassword, password, confirmPassword) => {
   const response = await apiClient.patch('/profile/update_password', {
     current_password: currentPassword,
     user: {
-      password: newPassword,
+      password,
       password_confirmation: confirmPassword
     }
   })
   return response.data
 }
+
+export const forgotPasswordAPI = async (email) => {
+  const response = await apiClient.post('/password/forgot', { email });
+  return response.data;
+};
+
+export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
+  const response = await apiClient.post('/password/reset', {
+    token,
+    user: {
+      password,
+      password_confirmation: passwordConfirmation
+    }
+  })
+  return response.data;
+};
