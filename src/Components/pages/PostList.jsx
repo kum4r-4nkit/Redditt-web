@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import RoundSpinner from '../../assets/animations/loaders/loading-spinner.gif'
-import DotSpinner from '../../assets/animations/loaders/dot-loader.gif'
+import DotLoader from '../../assets/animations/loaders/dot-loader.gif'
 import { fetchPostsAPI } from '../../api/auth';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -42,7 +42,7 @@ const PostList = () => {
   
   const ContentLoader = () => (
     <img
-      src={DotSpinner}
+      src={DotLoader}
       style={{ width: '200px', margin: '1rem auto', display: 'block' }}
       alt="Loading more"
     />
