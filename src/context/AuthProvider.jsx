@@ -1,15 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { logoutAPI } from '../api/auth';
+import { getUserDataAPI, logoutAPI } from '../api/auth';
 
 export const AuthProvider = ({ children }) => {  
   const [token, setToken] = useState(() => localStorage.getItem('token') || null);
   const [user, setUser] = useState({})
+  const [loading, setLoading] = useState(true)
 
-  const login = (newToken, user) => {
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (token) {
+        try {
+          const userData = await getUserDataAPI();
+          setUser(userData);
+        } catch (err) {
+          console.error("Failed to fetch user", err);
+          logout(); // Optionally logout on invalid token
+        }
+      }
+      setLoading(false);
+    };
+    fetchUser();
+  }, [token]);
+
+  const login = async (newToken) => {
     localStorage.setItem('token', newToken);
-    setUser(user)
     setToken(newToken);
+    try {
+      const userData = await getUserDataAPI();
+      setUser(userData);
+    } catch (err) {
+      console.error("Error fetching user on login", err);
+    }
   };
 
   const logout = async () => {
@@ -19,6 +41,7 @@ export const AuthProvider = ({ children }) => {
       console.error("Logout error", err);
     } finally {
       setToken(null);
+      setUser({})
       localStorage.removeItem('token');
       window.location.href = '/login';
     }
@@ -27,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   const isAuthenticated = !!token;
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isAuthenticated, user, setUser }}>
+    <AuthContext.Provider value={{ token, login, logout, isAuthenticated, user, setUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

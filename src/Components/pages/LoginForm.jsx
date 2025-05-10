@@ -15,7 +15,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const data = await loginAPI(email, password);
-      login(data.token, data.user);
+      await login(data.token);
       toast.success('Login successful!');  // Display success message
       navigate('/');
     } catch {

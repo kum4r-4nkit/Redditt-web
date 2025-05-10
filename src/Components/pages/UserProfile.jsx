@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Logout from './Logout'
-import RoundSpinner from '../../assets/animations/loaders/loading-spinner.gif'
 import { useAuth } from '../../hooks/useAuth';
 import { getUserDataAPI, updateUserAPI, updatePasswordAPI } from '../../api/auth';
 import { toast } from 'react-toastify';
@@ -8,7 +7,6 @@ import { toast } from 'react-toastify';
 const UserProfile = () => {
   const { user, setUser } = useAuth();
   const [bio, setBio] = useState('');
-  const [loading, setLoading] = useState(true)
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,8 +22,6 @@ const UserProfile = () => {
       setBio(data.bio)
     } catch (err) {
       console.log(err.response?.data?.errors?.[0] || '');
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -58,16 +54,6 @@ const UserProfile = () => {
       toast.error(err.response?.data?.error || 'Password update failed');
     }
   };
-
-  const SpinnerLoader = () => (
-    <img
-      src={RoundSpinner}
-      style={{ width: '150px', margin: 'auto', display: 'block' }}
-      alt="Loading"
-    />
-  );
-
-  if (loading) return <SpinnerLoader/>
 
   return (
     <div className="p-4">

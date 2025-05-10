@@ -24,8 +24,8 @@ const SignupForm = () => {
     e.preventDefault();
     try {
       const data = await signupAPI(form);
+      await login(data.token);
       toast.success('Signup successful!');
-      login(data.token, data.user);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.errors?.[0] || 'Signup failed');
