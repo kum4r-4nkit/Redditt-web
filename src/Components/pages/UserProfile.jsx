@@ -43,7 +43,6 @@ const UserProfile = () => {
       toast.error('New password and confirm password do not match');
       return;
     }
-
     try {
       await updatePasswordAPI(currentPassword, newPassword, confirmPassword);
       toast.success('Password updated successfully');
@@ -56,7 +55,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-1/4 min-w-3xs bg-gray-50">
       <div className='flex justify-end'><Logout/></div>
       <h2 className="text-xl font-bold pt-4 my-2">Profile</h2>
       <p><strong>Username:</strong> {user.username}</p>

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
           setUser(userData);
         } catch (err) {
           console.error("Failed to fetch user", err);
-          logout(); // Optionally logout on invalid token
+          logout();
         }
       }
       setLoading(false);

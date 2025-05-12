@@ -24,7 +24,7 @@ const ProtectedRoute = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow container mx-auto p-2">
+      <main className="flex-grow container">
         <Outlet />
       </main>
     </div>
