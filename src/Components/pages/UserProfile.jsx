@@ -3,6 +3,7 @@ import Logout from './Logout'
 import { useAuth } from '../../hooks/useAuth';
 import { getUserDataAPI, updateUserAPI, updatePasswordAPI } from '../../api/auth';
 import { toast } from 'react-toastify';
+import UserPostList from './UserPostList';
 
 const UserProfile = () => {
   const { user, setUser } = useAuth();
@@ -55,6 +56,7 @@ const UserProfile = () => {
   };
 
   return (
+    <div className='flex'>
     <div className="p-4 w-1/4 min-w-3xs bg-gray-50">
       <div className='flex justify-end'><Logout/></div>
       <h2 className="text-xl font-bold pt-4 my-2">Profile</h2>
@@ -84,6 +86,11 @@ const UserProfile = () => {
         /><br />
         <button onClick={handlePasswordUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
       </div>
+    </div>
+    <div className="p-4 w-3/4 min-w-3xs">
+      <p className='text-2xl font-bold mb-6'>Your posts</p>
+      <UserPostList/>
+    </div >
     </div>
   );
 };
