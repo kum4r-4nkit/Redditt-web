@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ContentDotLoader from '../molecules/ContentDotLoader';
 import ContentSpinnerLoader from '../molecules/ContentSpinnerLoader';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import CommentIcon from '../../assets/icons/comment.svg';
+import { Link } from 'react-router-dom';
 
 const PaginatedPostList = ({ fetchPostsAPI }) => {
   const [posts, setPosts] = useState([]);
@@ -35,11 +37,15 @@ const PaginatedPostList = ({ fetchPostsAPI }) => {
     return (
       <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={hasMore} loader={<ContentDotLoader />} endMessage={<p style={{ textAlign: 'center' }}>No more posts</p>} >
         {posts.map((post, i) => (
-          <div key={i} style={{ borderBottom: '1px solid #ccc', padding: '0px 16px' }}>
-            <h3>{post.title}</h3>
-            <p>{post.body}</p>
-            <p><i>by {post.user?.username || `User #${post.user_id}`}</i></p>
-            <p><small>{post.comments?.length || 0} comments</small></p>
+          <div key={i} style={{ borderBottom: '1px solid #ccc', padding: '0px 16px', cursor: 'pointer' }}>
+            <Link to={`/posts/${post.id}`}>
+              <p className='font-bold mt-2 mb-2'>{post.title}</p>
+              <p>{post.body}</p>
+              <div className='flex w-fit rounded-3xl border-gray-300 border-1 px-2 my-2'>
+                <img src={CommentIcon} alt="comment" className='bg-white w-4 mr-1'/>
+                <p><small>{post.comment_count || 0}</small></p>
+              </div>
+            </Link>
           </div>
         ))}
       </InfiniteScroll>

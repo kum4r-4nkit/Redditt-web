@@ -6,6 +6,7 @@ import SignupForm from './pages/SignupForm';
 import UserProfile from './pages/UserProfile';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import PostDetail from './pages/PostDetail';
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<PostList />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/posts/:id" element={<PostDetail />} />
       </Route>
     </Routes>
   );

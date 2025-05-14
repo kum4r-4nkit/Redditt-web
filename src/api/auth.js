@@ -25,6 +25,11 @@ export const logoutAPI = async() => {
   return response.data
 };
 
+export const getPostByIdAPI = async(id) => {
+  const response = await apiClient.get(`/posts/${id}`)
+  return response.data
+};
+
 export const getUserDataAPI = async() => {
   const response = await apiClient.get('/profile')
   return response.data

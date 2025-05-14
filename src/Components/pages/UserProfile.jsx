@@ -32,8 +32,7 @@ const UserProfile = () => {
       const data = await updateUserAPI(bio);
       toast.success('Bio update successful!');
       setUser(data)
-    } catch (err) {
-      console.log(err.response?.data?.errors?.[0] || 'LoLLLL 2');
+    } catch {
       toast.error('Bio update failed!');
     }
   };
