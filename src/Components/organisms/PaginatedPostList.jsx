@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import RoundSpinner from '../../assets/animations/loaders/loading-spinner.gif'
-import DotLoader from '../../assets/animations/loaders/dot-loader.gif'
-import { fetchUserPostsAPI } from '../../api/auth';
+import React, { useEffect, useState } from 'react'
+import ContentDotLoader from '../molecules/ContentDotLoader';
+import ContentSpinnerLoader from '../molecules/ContentSpinnerLoader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const UserPostList = () => {
+const PaginatedPostList = ({ fetchPostsAPI }) => {
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -18,7 +17,7 @@ const UserPostList = () => {
   const fetchPosts = async () => {
     if (page === 1) setIsInitialLoading(true)
     try {
-      const { posts } = await fetchUserPostsAPI(page, perPage);
+      const { posts } = await fetchPostsAPI(page, perPage);
       if (posts.length === 0) {
         setHasMore(false);
       } else {
@@ -32,31 +31,9 @@ const UserPostList = () => {
     }
   };
 
-  const SpinnerLoader = () => (
-    <img
-      src={RoundSpinner}
-      style={{ width: '150px', margin: 'auto', display: 'block' }}
-      alt="Loading"
-    />
-  );
-  
-  const ContentLoader = () => (
-    <img
-      src={DotLoader}
-      style={{ width: '200px', margin: '1rem auto', display: 'block' }}
-      alt="Loading more"
-    />
-  );
-
   const RenderPostList = () => {
     return (
-      <InfiniteScroll
-      dataLength={posts.length}
-      next={fetchPosts}
-      hasMore={hasMore}
-      loader={<ContentLoader />}
-      endMessage={<p style={{ textAlign: 'center' }}>No more posts</p>}
-    >
+      <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={hasMore} loader={<ContentDotLoader />} endMessage={<p style={{ textAlign: 'center' }}>No more posts</p>} >
         {posts.map((post, i) => (
           <div key={i} style={{ borderBottom: '1px solid #ccc', padding: '0px 16px' }}>
             <h3>{post.title}</h3>
@@ -69,11 +46,9 @@ const UserPostList = () => {
     )
   }
 
-  return (
-    <>
-      { isInitialLoading ? (<SpinnerLoader/>) : (<RenderPostList />) }
-    </>
-  );
-};
+  return (<>
+    { isInitialLoading ? (<ContentSpinnerLoader />) : (<RenderPostList />) }
+  </>);
+}
 
-export default UserPostList;
+export default PaginatedPostList

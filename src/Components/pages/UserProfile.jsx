@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Logout from './Logout'
 import { useAuth } from '../../hooks/useAuth';
-import { getUserDataAPI, updateUserAPI, updatePasswordAPI } from '../../api/auth';
+import { getUserDataAPI, updateUserAPI, updatePasswordAPI, fetchUserPostsAPI } from '../../api/auth';
 import { toast } from 'react-toastify';
-import UserPostList from './UserPostList';
+import PaginatedPostList from '../organisms/PaginatedPostList';
 
 const UserProfile = () => {
   const { user, setUser } = useAuth();
@@ -89,7 +89,7 @@ const UserProfile = () => {
     </div>
     <div className="p-4 w-3/4 min-w-3xs">
       <p className='text-2xl font-bold mb-6'>Your posts</p>
-      <UserPostList/>
+      <PaginatedPostList fetchPostsAPI={fetchUserPostsAPI} />
     </div >
     </div>
   );
