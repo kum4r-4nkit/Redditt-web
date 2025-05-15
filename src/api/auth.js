@@ -56,6 +56,11 @@ export const forgotPasswordAPI = async (email) => {
   return response.data;
 };
 
+export const createPostAPI = async (title, body) => {
+  const response = await apiClient.post('/posts', { title, body });
+  return response.data;
+};
+
 export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
   const response = await apiClient.post('/password/reset', {
     token,

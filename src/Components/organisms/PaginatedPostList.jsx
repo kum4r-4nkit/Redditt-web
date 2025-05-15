@@ -37,15 +37,16 @@ const PaginatedPostList = ({ fetchPostsAPI }) => {
     return (
       <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={hasMore} loader={<ContentDotLoader />} endMessage={<p style={{ textAlign: 'center' }}>No more posts</p>} >
         {posts.map((post, i) => (
-          <div key={i} style={{ borderBottom: '1px solid #ccc', padding: '0px 16px', cursor: 'pointer' }}>
+          <div key={i} className='rounded-2xl hover:bg-gray-100'>
             <Link to={`/posts/${post.id}`}>
-              <p className='font-bold mt-2 mb-2'>{post.title}</p>
-              <p>{post.body}</p>
-              <div className='flex w-fit rounded-3xl border-gray-300 border-1 px-2 my-2'>
+              <p className='font-bold mb-2 pl-3 pt-2'>{post.title}</p>
+              <p className='mx-3 my-2'>{post.body}</p>
+              <div className='flex w-fit rounded-3xl border-gray-300 border-1 px-2 m-3'>
                 <img src={CommentIcon} alt="comment" className='bg-white w-4 mr-1'/>
                 <p><small>{post.comment_count || 0}</small></p>
               </div>
             </Link>
+            <div className='border-b-1 opacity-20 mx-4'></div>
           </div>
         ))}
       </InfiniteScroll>

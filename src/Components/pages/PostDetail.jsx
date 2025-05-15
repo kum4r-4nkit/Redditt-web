@@ -27,8 +27,8 @@ const PostDetail = () => {
 
   return post ? (
     <div className="p-6">
-      <p className='bg-gray-200 w-fit px-3 rounded-2xl'>{post.user?.username}</p>
-      <h2 className="text-2xl font-bold">{post.title}</h2>
+      <p className='bg-gray-200 w-fit px-3 mb-2 rounded-2xl'>{post.user?.username}</p>
+      <h2 className="text-2xl font-bold mb-4">{post.title}</h2>
       <p>{post.body}</p>
 
       {/* {canEditPost && (
