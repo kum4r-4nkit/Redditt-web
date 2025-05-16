@@ -61,6 +61,11 @@ export const createPostAPI = async (title, body) => {
   return response.data;
 };
 
+export const deletePostAPI = async (id) => {
+  const response = await apiClient.delete(`/posts/${id}`);
+  return response.data;
+};
+
 export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
   const response = await apiClient.post('/password/reset', {
     token,
