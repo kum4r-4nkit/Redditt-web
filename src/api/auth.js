@@ -66,6 +66,11 @@ export const deletePostAPI = async (id) => {
   return response.data;
 };
 
+export const updatePostAPI = async (id, body) => {
+  const response = await apiClient.patch(`/posts/${id}`, { body } );
+  return response.data;
+};
+
 export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
   const response = await apiClient.post('/password/reset', {
     token,
