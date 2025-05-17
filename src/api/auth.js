@@ -76,6 +76,11 @@ export const createCommentAPI = async (id, body) => {
   return response.data;
 };
 
+export const deleteCommentAPI = async (postId, commentId) => {
+  const response = await apiClient.delete(`/posts/${postId}/comments/${commentId}`);
+  return response.data;
+};
+
 export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
   const response = await apiClient.post('/password/reset', {
     token,

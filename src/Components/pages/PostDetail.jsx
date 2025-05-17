@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getPostByIdAPI, deletePostAPI, updatePostAPI, createCommentAPI } from '../../api/auth';
+import { getPostByIdAPI, deletePostAPI, updatePostAPI, createCommentAPI, deleteCommentAPI } from '../../api/auth';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import EditIcon from '../../assets/icons/edit.svg'
@@ -60,13 +60,23 @@ const PostDetail = () => {
       setIsSubmitting(true);
       await createCommentAPI(post.id, newComment);
       setNewComment('');
-      // Re-fetch post to show new comment
       const updatedPost = await getPostByIdAPI(post.id);
       setPost(updatedPost);
     } catch {
       toast.error("Failed to add comment");
     } finally {
       setIsSubmitting(false);
+    }
+  }
+
+  const handleCommentDelete = async(commentId) => {
+    try {
+      await deleteCommentAPI(post.id, commentId);
+    } catch {
+      toast.error("Failed to delete post")
+    } finally {
+      const updatedPost = await getPostByIdAPI(post.id);
+      setPost(updatedPost);
     }
   }
 
@@ -101,9 +111,9 @@ const PostDetail = () => {
           <div key={comment.id} className="mt-2 border-b border-gray-200 pb-2">
             <div className='flex justify-between mb-2'>
               <p className='bg-gray-200 w-fit px-3 rounded-2xl'><small>{comment.user.username}</small></p>
-              {/* {user.id === comment.user.id && (
-                <img src={DeleteIcon} alt="delete" className='w-8 px-2' onClick={handleCommentDelete} />
-              )} */}
+              {user.id === comment.user.id && (
+                <img src={DeleteIcon} alt="delete" className='w-8 px-2' onClick={() => handleCommentDelete(comment.id)} />
+              )}
             </div>
             <p>{comment.body}</p>
           </div>
