@@ -71,6 +71,11 @@ export const updatePostAPI = async (id, body) => {
   return response.data;
 };
 
+export const createCommentAPI = async (id, body) => {
+  const response = await apiClient.post(`/posts/${id}/comments`, { body });
+  return response.data;
+};
+
 export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
   const response = await apiClient.post('/password/reset', {
     token,
