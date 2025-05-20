@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import EditIcon from '../../assets/icons/edit.svg'
 import DeleteIcon from '../../assets/icons/trash.svg'
+import ReplyIcon from '../../assets/icons/reply.svg'
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const PostDetail = () => {
   const [editedBody, setEditedBody] = useState('');
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [addComment, setAddComment] = useState(true)
+  const [replyParentId, setReplyParentId] = useState(null);
 
   useEffect(() => {
     async function fetchPost() {
@@ -58,8 +61,10 @@ const PostDetail = () => {
     if (!newComment.trim()) return;
     try {
       setIsSubmitting(true);
-      await createCommentAPI(post.id, newComment);
+      await createCommentAPI(post.id, newComment, replyParentId);
       setNewComment('');
+      setReplyParentId(null);
+      setAddComment(true);
       const updatedPost = await getPostByIdAPI(post.id);
       setPost(updatedPost);
     } catch {
@@ -81,6 +86,37 @@ const PostDetail = () => {
   }
 
   const canEditPost = user && post?.user?.id === user.id;
+
+  const CommentThread = ({ comment, currentUser, handleCommentDelete, level = 0 }) => {
+    return (
+      <div className={`ml-${level * 4} mt-4 border-l pl-4 border-gray-300`}>
+        <div className="flex justify-between">
+          <p className="bg-gray-200 w-fit px-3 rounded-2xl text-sm">{comment.user.username}</p>
+          <div className='flex'>
+            {currentUser?.id === comment.user.id && (
+              <img src={DeleteIcon} alt="delete" className="w-5 h-5 cursor-pointer opacity-70" onClick={() => handleCommentDelete(comment.id)} />
+            )}
+            <img src={ReplyIcon} alt="reply" className="w-5 h-5 cursor-pointer opacity-70 ml-4"
+              onClick={() => {
+                setAddComment(false);
+                setReplyParentId(comment.id);
+              }}
+            />
+          </div>
+        </div>
+        <p className="mt-1 text-sm">{comment.body}</p>
+
+        {comment.replies && comment.replies.length > 0 && (
+          <div className="mt-2">
+            {comment.replies.map(reply => (
+              <CommentThread key={reply.id} comment={reply} currentUser={currentUser} handleCommentDelete={handleCommentDelete} level={level + 1} />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
 
   return post ? (
     <div className="p-6 sm:max-w-3xl mx-auto">
@@ -105,23 +141,20 @@ const PostDetail = () => {
       ) : (
         <p>{post.body}</p>
       )}
-
-      <div className="mt-6 border-t pt-2">
+      {addComment ? (<div className="mt-6 border-t pt-2">
         {post.comments.map(comment => (
-          <div key={comment.id} className="mt-2 border-b border-gray-200 pb-2">
-            <div className='flex justify-between mb-2'>
-              <p className='bg-gray-200 w-fit px-3 rounded-2xl'><small>{comment.user.username}</small></p>
-              {user.id === comment.user.id && (
-                <img src={DeleteIcon} alt="delete" className='w-8 px-2' onClick={() => handleCommentDelete(comment.id)} />
-              )}
-            </div>
-            <p>{comment.body}</p>
-          </div>
+          <CommentThread key={comment.id} comment={comment} currentUser={user} handleCommentDelete={handleCommentDelete} />
         ))}
-        <h3 className="text-lg font-semibold mb-2 mt-6">Add a comment</h3>
-        <textarea className="w-full p-2 border border-gray-400 rounded mb-2" rows={2} value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Write your comment here..."/>
-        <button onClick={handleCommentSubmit} disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50" >{isSubmitting ? 'Posting...' : 'Post Comment'}</button>
-      </div>
+        <div onClick={() => setAddComment(false)} className='border border-gray-400 rounded-3xl mt-8 py-2 px-4 opacity-50'>Add a comment</div>
+        </div>
+      ) : (
+        <div className="mt-6 border-t pt-2">
+          <p className="text-lg font-semibold mb-2 mt-6">Add a comment</p>
+          <textarea className="w-full p-2 border border-gray-400 rounded mb-2" rows={2} value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Write your comment here..."/>
+          <button onClick={handleCommentSubmit} disabled={isSubmitting} className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50" >{isSubmitting ? 'Posting...' : 'Post Comment'}</button>
+          <button onClick={() => setAddComment(true)} className="bg-gray-400 text-white px-4 py-2 ml-2 rounded">Cancel</button>
+        </div>
+      )}
     </div>
   ) : (
     <p>Loading...</p>

@@ -71,8 +71,9 @@ export const updatePostAPI = async (id, body) => {
   return response.data;
 };
 
-export const createCommentAPI = async (id, body) => {
-  const response = await apiClient.post(`/posts/${id}/comments`, { body });
+export const createCommentAPI = async (postId, body, parentId) => {
+  let data = parentId ? { parent_id: parentId, body } : { body }
+  const response = await apiClient.post(`/posts/${postId}/comments`, data);
   return response.data;
 };
 
