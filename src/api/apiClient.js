@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://127.0.0.1:3000',
+  baseURL: 'https://redditt.onrender.com',
 });
 
 // Attach the token to every request if available
