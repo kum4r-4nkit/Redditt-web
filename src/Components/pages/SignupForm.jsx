@@ -35,11 +35,11 @@ const SignupForm = () => {
 
   return (
 
-    <div className='min-h-screen flex flex-row items-center'>
-      <div className='min-h-screen bg-orange-600 text-white w-3/5 text-9xl font-bold text-center content-center'>
+    <div className='h-screen sm:min-h-screen flex sm:flex-row flex-col items-center'>
+      <div className='h-1/2 sm:min-h-screen bg-orange-600 text-white sm:w-3/5 w-full sm:text-9xl text-6xl font-bold text-center content-center'>
         Redditt
       </div>
-      <div className='text-orange-600 w-2/5 min-h-screen content-center'>
+      <div className='text-orange-600 sm:w-2/5 h-1/2 sm:min-h-screen content-center'>
         <div className='w-fit mx-auto'>
           <h2 className='font-bold mb-3 ml-3 text-2xl'>Sign Up</h2>
           <form onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ const SignupForm = () => {
             <br />
             <input className='bg-gray-200 mx-1 rounded-md px-3 py-1 mb-2' name="passwordConfirmation" type="password" placeholder="Confirm Password" value={form.passwordConfirmation} onChange={handleChange} required />
             <br />
-            <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mb-16 mx-1' type="submit">Sign Up</button>
+            <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mb-8 mx-1' type="submit">Sign Up</button>
           </form>
           <p>Already have an account? <Link className="text-blue-600 hover:underline" to="/login">Login here</Link></p>
         </div>
