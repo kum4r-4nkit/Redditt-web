@@ -25,11 +25,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className='min-h-screen flex flex-row items-center'>
-      <div className='min-h-screen bg-orange-600 text-white w-3/5 text-9xl font-bold text-center content-center'>
+    <div className='h-screen sm:min-h-screen flex sm:flex-row flex-col items-center'>
+      <div className='h-1/2 sm:min-h-screen bg-orange-600 text-white sm:w-3/5 w-full sm:text-9xl text-6xl font-bold text-center content-center'>
         Redditt
       </div>
-      <div className='text-orange-600 w-2/5 min-h-screen content-center'>
+      <div className='text-orange-600 sm:w-2/5 h-1/2 sm:min-h-screen content-center'>
         <div className='w-fit mx-auto'>
           <h2 className='font-bold mb-3 ml-2'>Have an account? Sign In</h2>
           {error && <p style={{ color: 'red' }}>{error}</p>}

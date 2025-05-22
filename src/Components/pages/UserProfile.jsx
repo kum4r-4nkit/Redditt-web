@@ -55,41 +55,41 @@ const UserProfile = () => {
   };
 
   return (
-    <div className='flex'>
-    <div className="p-4 w-1/4 min-w-3xs bg-gray-50">
-      <div className='flex justify-end'><Logout/></div>
-      <h2 className="text-xl font-bold pt-4 my-2">Profile</h2>
-      <p><strong>Username:</strong> {user.username}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <div className="mt-1">
-        <label><strong>Bio:</strong></label>
-        <textarea value={bio} onChange={(e) => setBio(e.target.value)} className="w-full border p-2 mb-2" />
-        <button onClick={handleUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
+    <div className='flex flex-col sm:flex-row'>
+      <div className="p-4 sm:w-1/4 sm:min-w-3xs bg-gray-50">
+        <div className='flex justify-end'><Logout/></div>
+        <h2 className="text-xl font-bold pt-4 my-2">Profile</h2>
+        <p><strong>Username:</strong> {user.username}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <div className="mt-1">
+          <label><strong>Bio:</strong></label>
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} className="w-full border p-2 mb-2" />
+          <button onClick={handleUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
+        </div>
+        <div className='mt-12'>
+          <strong>Update password:</strong><br />
+          <input
+            type="password" placeholder='Current Password'
+            value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
+            className='bg-gray-200 rounded-md px-3 py-1 mb-3 mt-3' required
+          /><br />
+          <input
+            type="password" placeholder='New Password'
+            value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+            className='bg-gray-200 rounded-md px-3 py-1 mb-3' required
+          /><br />
+          <input
+            type="password" placeholder='Confirm New Password'
+            value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+            className='bg-gray-200 rounded-md px-3 py-1 mb-3' required
+          /><br />
+          <button onClick={handlePasswordUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
+        </div>
       </div>
-      <div className='mt-12'>
-        <strong>Update password:</strong><br />
-        <input
-          type="password" placeholder='Current Password'
-          value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
-          className='bg-gray-200 rounded-md px-3 py-1 mb-3 mt-3' required
-        /><br />
-        <input
-          type="password" placeholder='New Password'
-          value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
-          className='bg-gray-200 rounded-md px-3 py-1 mb-3' required
-        /><br />
-        <input
-          type="password" placeholder='Confirm New Password'
-          value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-          className='bg-gray-200 rounded-md px-3 py-1 mb-3' required
-        /><br />
-        <button onClick={handlePasswordUpdate} className="bg-blue-500 text-white px-4 py-2 rounded-xl">Update</button>
-      </div>
-    </div>
-    <div className="p-4 w-3/4 min-w-3xs">
-      <p className='text-2xl font-bold mb-6'>Your posts</p>
-      <PaginatedPostList fetchPostsAPI={fetchUserPostsAPI} />
-    </div >
+      <div className="p-4 sm:w-3/4 sm:min-w-3xs">
+        <p className='text-2xl font-bold mb-6'>Your posts</p>
+        <PaginatedPostList fetchPostsAPI={fetchUserPostsAPI} />
+      </div >
     </div>
   );
 };

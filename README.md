@@ -7,3 +7,5 @@ Personal project using ROR as backend for fetching data
 * Infinite scroll
 * Nested Comments
 * Token-based Authentication using Backend
+
+> live ->  https://reddditt.netlify.app
