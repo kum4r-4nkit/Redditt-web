@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ContentDotLoader from '../molecules/ContentDotLoader';
 import ContentSpinnerLoader from '../molecules/ContentSpinnerLoader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentIcon from '../../assets/icons/comment.svg';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 const PaginatedPostList = ({ fetchPostsAPI }) => {
   const [posts, setPosts] = useState([]);
@@ -11,6 +13,7 @@ const PaginatedPostList = ({ fetchPostsAPI }) => {
   const [page, setPage] = useState(1);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const perPage = 10;
+  dayjs.extend(relativeTime)
 
   useEffect(() => {
     fetchPosts()
@@ -37,9 +40,10 @@ const PaginatedPostList = ({ fetchPostsAPI }) => {
     return (
       <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={hasMore} loader={<ContentDotLoader />} endMessage={<p style={{ textAlign: 'center' }}>No more posts</p>} >
         {posts.map((post, i) => (
-          <div key={i} className='rounded-2xl hover:bg-gray-100'>
+          <div key={i} className='rounded-2xl hover:bg-gray-100 pt-2'>
             <Link to={`/posts/${post.id}`}>
-              <p className='font-bold mb-2 pl-3 pt-2'>{post.title}</p>
+              <p className='bg-gray-200 w-fit px-2 py-0.5 mb-2 ml-3  text-xs rounded-2xl'>{post.user_name} · {dayjs(`${post.created_at}`).fromNow()}</p>
+              <p className='font-bold mb-2 pl-3'>{post.title}</p>
               <p className='mx-3 my-2'>{post.body}</p>
               <div className='flex w-fit rounded-3xl border-gray-300 border-1 px-2 m-3'>
                 <img src={CommentIcon} alt="comment" className='bg-white w-4 mr-1'/>
