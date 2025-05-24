@@ -1,4 +1,3 @@
-import React from 'react';
 import { fetchPostsAPI } from '../../api/auth';
 import PaginatedPostList from '../organisms/PaginatedPostList';
 import CreatePost from '../../assets/icons/new.svg';

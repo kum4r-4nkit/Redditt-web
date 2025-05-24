@@ -51,11 +51,6 @@ export const updatePasswordAPI = async(currentPassword, password, confirmPasswor
   return response.data
 }
 
-export const forgotPasswordAPI = async (email) => {
-  const response = await apiClient.post('/password/forgot', { email });
-  return response.data;
-};
-
 export const createPostAPI = async (title, body) => {
   const response = await apiClient.post('/posts', { title, body });
   return response.data;
@@ -82,13 +77,18 @@ export const deleteCommentAPI = async (postId, commentId) => {
   return response.data;
 };
 
-export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
-  const response = await apiClient.post('/password/reset', {
-    token,
-    user: {
-      password,
-      password_confirmation: passwordConfirmation
-    }
-  })
-  return response.data;
-};
+// export const forgotPasswordAPI = async (email) => {
+//   const response = await apiClient.post('/password/forgot', { email });
+//   return response.data;
+// };
+
+// export const resetPasswordAPI = async (token, password, passwordConfirmation) => {
+//   const response = await apiClient.post('/password/reset', {
+//     token,
+//     user: {
+//       password,
+//       password_confirmation: passwordConfirmation
+//     }
+//   })
+//   return response.data;
+// };

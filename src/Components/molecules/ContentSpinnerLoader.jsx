@@ -1,4 +1,3 @@
-import React from 'react'
 import RoundSpinner from '../../assets/animations/loaders/loading-spinner.gif'
 
 const ContentSpinnerLoader = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAPI } from '../../api/auth';
 import { useAuth } from '../../hooks/useAuth';
@@ -38,11 +38,11 @@ const LoginForm = () => {
             <br />
             <input className='bg-gray-200 mx-1 rounded-md px-3 py-1 mb-2' type="password" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} required />
             <br />
-            <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mx-1' type="submit">Login</button>
+            <button className='font-bold bg-blue-800 text-white rounded-lg px-4 py-1 mx-1 mb-12' type="submit">Login</button>
           </form>
-          <div className="mb-12 text-sm text-right">
+          {/* <div className="mb-12 text-sm text-right">
             <Link to="/forgot-password" className="text-blue-600 hover:underline">Forgot password?</Link>
-          </div>
+          </div> */}
           <p>Don't have an account? <Link className="text-blue-600 hover:underline" to="/signup">Sign up here</Link></p>
         </div>
       </div>

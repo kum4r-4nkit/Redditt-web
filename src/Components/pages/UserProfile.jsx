@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Logout from './Logout'
 import { useAuth } from '../../hooks/useAuth';
 import { getUserDataAPI, updateUserAPI, updatePasswordAPI, fetchUserPostsAPI } from '../../api/auth';

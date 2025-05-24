@@ -1,4 +1,3 @@
-import React from 'react'
 import DotLoader from '../../assets/animations/loaders/dot-loader.gif'
 
 const ContentDotLoader = () => {

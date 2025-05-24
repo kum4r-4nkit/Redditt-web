@@ -1,4 +1,3 @@
-import React from 'react';
 import LogoutIcon from '../../assets/icons/logout.svg';
 import { useAuth } from '../../hooks/useAuth';
 
